@@ -1,6 +1,7 @@
 # Blazor Fast Rolling Numbers
 
 [![NuGet](https://img.shields.io/nuget/v/BlazorFastRollingNumbers.svg)](https://www.nuget.org/packages/BlazorFastRollingNumbers/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Zettersten/BlazorFastRollingNumbers)
 
 Blazor Fast Rolling Numbers is a high-performance animated counter component for Blazor inspired by [`@layflags/rolling-number`](https://www.npmjs.com/package/@layflags/rolling-number). It delivers smooth, CSS-powered rolling number animations while embracing .NET's ahead-of-time (AOT) compilation and aggressive trimming so your applications remain lean without sacrificing fidelity.
 
