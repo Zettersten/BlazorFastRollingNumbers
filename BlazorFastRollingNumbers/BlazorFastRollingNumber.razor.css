@@ -4,15 +4,16 @@
 }
 
 .bfrn {
-    font-family: "Roboto", "Arial", sans-serif;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    font-weight: 500;
+    /* User-customizable CSS variables */
+    font-family: var(--bfrn-font-family, inherit);
+    font-size: var(--bfrn-font-size, inherit);
+    line-height: var(--bfrn-line-height, normal);
+    font-weight: var(--bfrn-font-weight, inherit);
+    color: var(--bfrn-color, inherit);
+    
+    /* Layout - not customizable */
     display: inline-flex;
-    /* Modern CSS containment for performance */
     contain: layout style paint;
-    /* Subgrid for better alignment (if parent is grid) */
-    display: inline-flex;
 }
 
 .bfrn__digit {

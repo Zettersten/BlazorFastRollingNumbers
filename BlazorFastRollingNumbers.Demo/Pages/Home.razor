@@ -1,70 +1,177 @@
 @page "/"
 @using BlazorFastRollingNumbers
 
-<PageTitle>BlazorFastRollingNumber</PageTitle>
+<PageTitle>Blazor Fast Rolling Numbers - Demo & Documentation</PageTitle>
 
 <div class="page">
     <header>
-        <h1>BlazorFastRollingNumber</h1>
-        <p>High-performance rolling number animations for Blazor</p>
+        <div class="badge">v1.0</div>
+        <h1>Blazor Fast Rolling Numbers</h1>
+        <p>High-performance animated counter component for Blazor. AOT-ready, trimming-safe, and CSS-powered.</p>
+        <div class="links">
+            <a href="https://github.com/zettersten/BlazorFastRollingNumbers" target="_blank" class="btn btn-primary">
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                GitHub
+            </a>
+            <a href="https://www.nuget.org/packages/BlazorFastRollingNumbers" target="_blank" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M0 0h256v256H0V0z" fill="none"/><path d="M127.478 0L0 127.478v127.479h63.738V127.478L127.478 63.74l63.738 63.738H256V0H127.478z"/></svg>
+                NuGet
+            </a>
+        </div>
     </header>
 
     <section class="playground">
-        <div class="control">
-            <input type="number" @bind="_value" @bind:event="oninput" />
-            <button @onclick="Random">Random</button>
-        </div>
-        <div class="display">
-            <BlazorFastRollingNumber Value="_value" MinimumDigits="6" />
+        <h2>Interactive Playground</h2>
+        <div class="playground-content">
+            <div class="controls">
+                <input type="number" @bind="_playgroundValue" @bind:event="oninput" placeholder="Enter a number" />
+                <button @onclick="RandomPlayground" class="btn-random">🎲 Random</button>
+            </div>
+            <div class="display">
+                <BlazorFastRollingNumber Value="_playgroundValue" MinimumDigits="6" Class="display-number" />
+            </div>
         </div>
     </section>
 
-    <section class="examples">
-        <div class="card" @onclick="() => _counter++">
-            <label>Counter</label>
-            <div class="number">
-                <BlazorFastRollingNumber Value="_counter" MinimumDigits="3" />
+    <section class="examples-section">
+        <h2>Interactive Examples</h2>
+        <p class="subtitle">Click any card to increment the value</p>
+        <div class="examples-grid">
+            <div class="example-card" @onclick="() => _counter++">
+                <div class="card-label">Counter</div>
+                <div class="card-value">
+                    <BlazorFastRollingNumber Value="_counter" MinimumDigits="3" Class="mono" />
+                </div>
+                <div class="card-code">MinimumDigits="3"</div>
+            </div>
+
+            <div class="example-card" @onclick="() => _score += 100">
+                <div class="card-label">Score</div>
+                <div class="card-value">
+                    <BlazorFastRollingNumber Value="_score" MinimumDigits="5" Duration="500ms" Class="mono" />
+                </div>
+                <div class="card-code">Duration="500ms"</div>
+            </div>
+
+            <div class="example-card" @onclick="() => _temp += 5">
+                <div class="card-label">Temperature</div>
+                <div class="card-value">
+                    <BlazorFastRollingNumber Value="_temp" Class="mono" />°C
+                </div>
+                <div class="card-code">Negative numbers</div>
+            </div>
+
+            <div class="example-card" @onclick="() => _price += 999">
+                <div class="card-label">Price</div>
+                <div class="card-value">
+                    $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" Class="mono" />
+                </div>
+                <div class="card-code">Custom easing</div>
             </div>
         </div>
+    </section>
 
-        <div class="card" @onclick="() => _score += 100">
-            <label>Score</label>
-            <div class="number">
-                <BlazorFastRollingNumber Value="_score" MinimumDigits="5" Duration="500ms" />
+    <section class="showcase-section">
+        <h2>Styling Examples</h2>
+        <div class="showcase-grid">
+            <div class="showcase-item">
+                <div class="showcase-label">Large Display</div>
+                <BlazorFastRollingNumber Value="_subscribers" Class="large" />
+                <button @onclick="() => _subscribers += 1000" class="showcase-btn">+1K Subscribers</button>
+            </div>
+
+            <div class="showcase-item">
+                <div class="showcase-label">Colorful</div>
+                <BlazorFastRollingNumber Value="_likes" Class="colorful" />
+                <button @onclick="() => _likes++" class="showcase-btn">❤️ Like</button>
+            </div>
+
+            <div class="showcase-item">
+                <div class="showcase-label">Compact</div>
+                <BlazorFastRollingNumber Value="_views" Class="compact" />
+                <button @onclick="() => _views += 10" class="showcase-btn">👁️ +10 Views</button>
             </div>
         </div>
+    </section>
 
-        <div class="card" @onclick="() => _temp += 5">
-            <label>Temperature</label>
-            <div class="number">
-                <BlazorFastRollingNumber Value="_temp" />°C
+    <section class="features-section">
+        <h2>Key Features</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Pure CSS Animations</div>
+                <div class="feature-text">Smooth transitions using CSS transforms—no JavaScript for animation logic</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🪶</div>
+                <div class="feature-title">Trimming-Friendly</div>
+                <div class="feature-text">Marked as trimmable with analyzers enabled for minimal bundle size</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">AOT Ready</div>
+                <div class="feature-text">Validated against Native AOT constraints with EnableAOTAnalyzer</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Zero-Allocation</div>
+                <div class="feature-text">Uses Span&lt;T&gt;, stackalloc, and aggressive inlining</div>
             </div>
         </div>
+    </section>
 
-        <div class="card" @onclick="() => _price += 1000">
-            <label>Price</label>
-            <div class="number">
-                $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" />
-            </div>
+    <section class="installation-section">
+        <h2>Installation</h2>
+        <div class="code-block">
+            <code>dotnet add package BlazorFastRollingNumbers</code>
+        </div>
+        <h3>Basic Usage</h3>
+        <div class="code-block">
+            <pre><code>&lt;BlazorFastRollingNumber Value="12345" /&gt;</code></pre>
+        </div>
+        <h3>With Custom Styling</h3>
+        <div class="code-block">
+            <pre><code>&lt;BlazorFastRollingNumber 
+    Value="@@score" 
+    Duration="0.5s"
+    Class="my-counter" /&gt;
+
+&lt;style&gt;
+.my-counter {
+    --bfrn-font-size: 3rem;
+    --bfrn-font-weight: 700;
+    --bfrn-color: #3b82f6;
+}
+&lt;/style&gt;</code></pre>
         </div>
     </section>
 
     <footer>
-        <a href="https://github.com/zettersten/BlazorFastRollingNumbers" target="_blank">GitHub</a>
-        <span>·</span>
-        <a href="https://www.nuget.org/packages/BlazorFastRollingNumbers" target="_blank">NuGet</a>
+        <div class="footer-content">
+            <div>Built with ❤️ for the Blazor community</div>
+            <div class="footer-links">
+                <a href="https://github.com/zettersten/BlazorFastRollingNumbers" target="_blank">GitHub</a>
+                <span>•</span>
+                <a href="https://www.nuget.org/packages/BlazorFastRollingNumbers" target="_blank">NuGet</a>
+                <span>•</span>
+                <a href="https://github.com/zettersten/BlazorFastRollingNumbers/blob/main/README.md" target="_blank">Documentation</a>
+            </div>
+        </div>
     </footer>
 </div>
 
 @code {
-    private int _value = 123456;
+    private int _playgroundValue = 123456;
     private int _counter = 0;
     private int _score = 12345;
     private int _temp = -5;
     private int _price = 99900;
+    private int _subscribers = 42567;
+    private int _likes = 8934;
+    private int _views = 156789;
 
-    private void Random()
+    private void RandomPlayground()
     {
-        _value = System.Random.Shared.Next(0, 999999);
+        _playgroundValue = System.Random.Shared.Next(-999999, 999999);
     }
 }

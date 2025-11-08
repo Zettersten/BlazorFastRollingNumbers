@@ -3,7 +3,7 @@
 @using System.Runtime.CompilerServices
 @using System.Runtime.InteropServices
 
-<span class="bfrn" style="--roll-duration: @Duration; --roll-easing: @EasingFunction">
+<span class="bfrn @CssClass" style="--roll-duration: @Duration; --roll-easing: @EasingFunction">
     @foreach (var item in _digitData)
     {
         <span class="bfrn__digit" style="--digit-offset: @(item.Offset)%" data-digit="@(item.Index)">
@@ -37,6 +37,9 @@
 
     [Parameter]
     public string EasingFunction { get; set; } = "ease";
+
+    [Parameter]
+    public string? CssClass { get; set; }
 
     private DigitData[] _digitData = [];
     private int _lastValue = int.MaxValue;
