@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    
+    <!-- NuGet Package Metadata -->
+    <PackageId>BlazorFastRollingNumbers</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Your Name</Authors>
+    <Company>Your Company</Company>
+    <Description>A Blazor component library for animated rolling number transitions</Description>
+    <PackageTags>blazor;component;animation;rolling-numbers</PackageTags>
+    <PackageProjectUrl>https://github.com/yourusername/BlazorFastRollingNumbers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yourusername/BlazorFastRollingNumbers</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

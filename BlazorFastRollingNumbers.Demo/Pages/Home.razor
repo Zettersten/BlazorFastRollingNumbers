@@ -1,0 +1,70 @@
+@page "/"
+@using BlazorFastRollingNumbers
+
+<PageTitle>BlazorFastRollingNumber</PageTitle>
+
+<div class="page">
+    <header>
+        <h1>BlazorFastRollingNumber</h1>
+        <p>High-performance rolling number animations for Blazor</p>
+    </header>
+
+    <section class="playground">
+        <div class="control">
+            <input type="number" @bind="_value" @bind:event="oninput" />
+            <button @onclick="Random">Random</button>
+        </div>
+        <div class="display">
+            <BlazorFastRollingNumber Value="_value" MinimumDigits="6" />
+        </div>
+    </section>
+
+    <section class="examples">
+        <div class="card" @onclick="() => _counter++">
+            <label>Counter</label>
+            <div class="number">
+                <BlazorFastRollingNumber Value="_counter" MinimumDigits="3" />
+            </div>
+        </div>
+
+        <div class="card" @onclick="() => _score += 100">
+            <label>Score</label>
+            <div class="number">
+                <BlazorFastRollingNumber Value="_score" MinimumDigits="5" Duration="500ms" />
+            </div>
+        </div>
+
+        <div class="card" @onclick="() => _temp += 5">
+            <label>Temperature</label>
+            <div class="number">
+                <BlazorFastRollingNumber Value="_temp" />°C
+            </div>
+        </div>
+
+        <div class="card" @onclick="() => _price += 1000">
+            <label>Price</label>
+            <div class="number">
+                $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" />
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="https://github.com/zettersten/BlazorFastRollingNumbers" target="_blank">GitHub</a>
+        <span>·</span>
+        <a href="https://www.nuget.org/packages/BlazorFastRollingNumbers" target="_blank">NuGet</a>
+    </footer>
+</div>
+
+@code {
+    private int _value = 123456;
+    private int _counter = 0;
+    private int _score = 12345;
+    private int _temp = -5;
+    private int _price = 99900;
+
+    private void Random()
+    {
+        _value = System.Random.Shared.Next(0, 999999);
+    }
+}

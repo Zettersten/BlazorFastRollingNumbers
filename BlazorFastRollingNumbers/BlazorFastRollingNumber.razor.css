@@ -1,0 +1,79 @@
+::deep :host {
+    --roll-duration: 1s;
+    --roll-easing: ease;
+}
+
+.bfrn {
+    font-family: "Roboto", "Arial", sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: 500;
+    display: inline-flex;
+    /* Modern CSS containment for performance */
+    contain: layout style paint;
+    /* Subgrid for better alignment (if parent is grid) */
+    display: inline-flex;
+}
+
+.bfrn__digit {
+    width: 1ch;
+    overflow: hidden;
+    display: inline-flex;
+    position: relative;
+}
+
+.bfrn__value {
+    color: transparent;
+    position: relative;
+}
+
+.bfrn__scale {
+    user-select: none;
+    position: absolute;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: transform var(--roll-duration, 1s);
+}
+
+.bfrn__digit .bfrn__scale {
+    transform: translateY(var(--digit-offset, 0%));
+}
+
+.bfrn__scale span:last-child {
+    position: absolute;
+    bottom: -10%;
+    left: 0;
+}
+
+/* Support for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .bfrn__scale {
+        transition: none;
+    }
+}
+
+/* High refresh rate optimization */
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+        .bfrn__scale {
+            /* Ready for scroll-driven animations if needed */
+        }
+    }
+}
+
+/* Color scheme support */
+@media (prefers-color-scheme: dark) {
+    .bfrn {
+        color-scheme: dark;
+    }
+}
+
+/* Container queries support (when parent has container-type) */
+@container (min-width: 0) {
+    .bfrn__digit {
+        /* Container-aware sizing if needed */
+    }
+}

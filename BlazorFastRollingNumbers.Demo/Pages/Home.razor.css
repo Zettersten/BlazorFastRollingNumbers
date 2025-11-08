@@ -1,0 +1,181 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #888;
+    font-weight: 400;
+}
+
+.playground {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.control {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.control input {
+    width: 200px;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.control input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.control button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background: #667eea;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.control button:hover {
+    background: #5568d3;
+    transform: translateY(-1px);
+}
+
+.control button:active {
+    transform: translateY(0);
+}
+
+.display {
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    letter-spacing: 0.1em;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 16px;
+    min-width: 300px;
+    text-align: center;
+}
+
+.examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+}
+
+.card:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+}
+
+.card:active {
+    transform: translateY(0);
+}
+
+.card label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.card .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    line-height: 1;
+}
+
+footer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+footer a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #667eea;
+}
+
+footer span {
+    color: #333;
+}
+
+@media (max-width: 640px) {
+    .page {
+        gap: 3rem;
+        padding: 1rem;
+    }
+
+    .examples {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .display {
+        min-width: 250px;
+        font-size: 3rem;
+    }
+}

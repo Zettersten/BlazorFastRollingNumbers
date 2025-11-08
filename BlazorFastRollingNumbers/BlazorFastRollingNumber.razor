@@ -1,0 +1,110 @@
+@namespace BlazorFastRollingNumbers
+@using System.Runtime.CompilerServices
+
+<span class="bfrn" style="--roll-duration: @Duration; --roll-easing: @EasingFunction">
+    @for (int i = 0; i < _digits.Length; i++)
+    {
+        var index = i;
+        var digit = _digits[index];
+        var offset = GetTransformOffset(digit);
+        <span class="bfrn__digit" style="--digit-offset: @(offset)%" data-digit="@index">
+            <span class="bfrn__scale" aria-hidden="true">
+                <span>0</span>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>-</span>
+            </span>
+            <span class="bfrn__value">@digit</span>
+        </span>
+    }
+</span>
+
+@code {
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public int MinimumDigits { get; set; } = 0;
+
+    [Parameter]
+    public string Duration { get; set; } = "1s";
+
+    [Parameter]
+    public string EasingFunction { get; set; } = "ease";
+
+    private ReadOnlySpan<char> _digits => _digitArray.AsSpan();
+    private char[] _digitArray = Array.Empty<char>();
+
+    protected override void OnParametersSet()
+    {
+        var targetSize = Math.Max(MinimumDigits, GetDigitCount(Value));
+        _digitArray = ToDigits(Value, targetSize);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int GetTransformOffset(char digit)
+    {
+        return digit switch
+        {
+            '\u200B' => 10,  // zero-width space
+            '0' => 0,
+            '1' => -10,
+            '2' => -20,
+            '3' => -30,
+            '4' => -40,
+            '5' => -50,
+            '6' => -60,
+            '7' => -70,
+            '8' => -80,
+            '9' => -90,
+            '-' => -100,
+            _ => 0
+        };
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int GetDigitCount(int value)
+    {
+        if (value == 0) return 1;
+        if (value == int.MinValue) return 11; // "-2147483648"
+        var absValue = Math.Abs(value);
+        var digits = (int)Math.Floor(Math.Log10(absValue)) + 1;
+        return value < 0 ? digits + 1 : digits;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
+    private static char[] ToDigits(int value, int minimumSize)
+    {
+        const char ZeroWidthSpace = '\u200B';
+        
+        Span<char> buffer = stackalloc char[11]; // Max int is 10 digits + sign
+        var written = 0;
+        
+        if (value.TryFormat(buffer, out written))
+        {
+            var actualSize = Math.Max(minimumSize, written);
+            var result = new char[actualSize];
+            var padding = actualSize - written;
+            
+            // Fill padding with zero-width spaces
+            for (int i = 0; i < padding; i++)
+            {
+                result[i] = ZeroWidthSpace;
+            }
+            
+            // Copy digits
+            buffer.Slice(0, written).CopyTo(result.AsSpan(padding));
+            return result;
+        }
+        
+        // Fallback
+        return new[] { ZeroWidthSpace };
+    }
+}
