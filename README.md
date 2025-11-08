@@ -73,7 +73,7 @@ builder.Services.AddRazorComponents()
 <BlazorFastRollingNumber 
     Value="@currentScore" 
     Duration="0.5s" 
-    EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
+    Easing="Easing.EaseInOutCubic"
     CssClass="score-counter" />
 ```
 
@@ -119,8 +119,29 @@ The component is fully compatible with:
 | `Value` | `int` | *required* | The number to display (supports positive and negative integers). |
 | `MinimumDigits` | `int` | `0` | Minimum number of digits to display (pads with zero-width spaces). |
 | `Duration` | `string` | `"1s"` | CSS transition duration (e.g., "0.5s", "500ms"). |
-| `EasingFunction` | `string` | `"ease"` | CSS easing function (e.g., "ease-in-out", "cubic-bezier(0.4, 0, 0.2, 1)"). |
+| `Easing` | `Easing` | `Easing.Ease` | Easing function with static defaults or custom CSS string (see below). |
 | `CssClass` | `string?` | `null` | Additional CSS class names for the container element. |
+
+### Easing Functions
+
+The `Easing` parameter supports three usage patterns:
+
+**1. Static defaults:**
+```razor
+<BlazorFastRollingNumber Value="@score" Easing="Easing.EaseInOutCubic" />
+```
+
+Available defaults: `Linear`, `Ease`, `EaseIn`, `EaseOut`, `EaseInOut`, `EaseInSine`, `EaseOutSine`, `EaseInOutSine`, `EaseInQuad`, `EaseOutQuad`, `EaseInOutQuad`, `EaseInCubic`, `EaseOutCubic`, `EaseInOutCubic`, `EaseInQuart`, `EaseOutQuart`, `EaseInOutQuart`, `EaseInQuint`, `EaseOutQuint`, `EaseInOutQuint`, `EaseInExpo`, `EaseOutExpo`, `EaseInOutExpo`, `EaseInCirc`, `EaseOutCirc`, `EaseInOutCirc`, `EaseInBack`, `EaseOutBack`, `EaseInOutBack`.
+
+**2. Custom strings (implicit conversion):**
+```razor
+<BlazorFastRollingNumber Value="@score" Easing="cubic-bezier(0.4, 0, 0.2, 1)" />
+```
+
+**3. Inline instantiation:**
+```razor
+<BlazorFastRollingNumber Value="@score" Easing="new Easing(\"ease-in-out\")" />
+```
 
 ## Styling with CSS Variables
 

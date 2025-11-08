@@ -64,9 +64,9 @@
             <div class="example-card" @onclick="() => _price += 999">
                 <div class="card-label">Price</div>
                 <div class="card-value">
-                    $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" CssClass="mono" />
+                    $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" Easing="Easing.EaseInOutCubic" CssClass="mono" />
                 </div>
-                <div class="card-code">Custom easing</div>
+                <div class="card-code">Easing.EaseInOutCubic</div>
             </div>
         </div>
     </section>

@@ -3,7 +3,7 @@
 @using System.Runtime.CompilerServices
 @using System.Runtime.InteropServices
 
-<span class="bfrn @CssClass" style="--roll-duration: @Duration; --roll-easing: @EasingFunction">
+<span class="bfrn @CssClass" style="--roll-duration: @Duration; --roll-easing: @Easing">
     @foreach (var item in _digitData)
     {
         <span class="bfrn__digit" style="--digit-offset: @(item.Offset)%" data-digit="@(item.Index)">
@@ -36,7 +36,7 @@
     public string Duration { get; set; } = "1s";
 
     [Parameter]
-    public string EasingFunction { get; set; } = "ease";
+    public Easing Easing { get; set; } = Easing.Ease;
 
     [Parameter]
     public string? CssClass { get; set; }

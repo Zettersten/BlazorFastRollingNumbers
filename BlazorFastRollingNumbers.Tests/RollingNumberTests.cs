@@ -234,7 +234,7 @@ public class BlazorFastRollingNumberTests : TestContext
         // Arrange & Act
         var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 123)
-            .Add(p => p.EasingFunction, "cubic-bezier(0.4, 0, 0.2, 1)"));
+            .Add(p => p.Easing, "cubic-bezier(0.4, 0, 0.2, 1)"));
 
         // Assert
         var wrapper = cut.Find(".bfrn");
