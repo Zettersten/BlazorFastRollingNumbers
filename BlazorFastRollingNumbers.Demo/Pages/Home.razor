@@ -28,7 +28,7 @@
                 <button @onclick="RandomPlayground" class="btn-random">🎲 Random</button>
             </div>
             <div class="display">
-                <BlazorFastRollingNumber Value="_playgroundValue" MinimumDigits="6" Class="display-number" />
+                <BlazorFastRollingNumber Value="_playgroundValue" MinimumDigits="6" CssClass="display-number" />
             </div>
         </div>
     </section>
@@ -40,7 +40,7 @@
             <div class="example-card" @onclick="() => _counter++">
                 <div class="card-label">Counter</div>
                 <div class="card-value">
-                    <BlazorFastRollingNumber Value="_counter" MinimumDigits="3" Class="mono" />
+                    <BlazorFastRollingNumber Value="_counter" MinimumDigits="3" CssClass="mono" />
                 </div>
                 <div class="card-code">MinimumDigits="3"</div>
             </div>
@@ -48,7 +48,7 @@
             <div class="example-card" @onclick="() => _score += 100">
                 <div class="card-label">Score</div>
                 <div class="card-value">
-                    <BlazorFastRollingNumber Value="_score" MinimumDigits="5" Duration="500ms" Class="mono" />
+                    <BlazorFastRollingNumber Value="_score" MinimumDigits="5" Duration="500ms" CssClass="mono" />
                 </div>
                 <div class="card-code">Duration="500ms"</div>
             </div>
@@ -56,7 +56,7 @@
             <div class="example-card" @onclick="() => _temp += 5">
                 <div class="card-label">Temperature</div>
                 <div class="card-value">
-                    <BlazorFastRollingNumber Value="_temp" Class="mono" />°C
+                    <BlazorFastRollingNumber Value="_temp" CssClass="mono" />°C
                 </div>
                 <div class="card-code">Negative numbers</div>
             </div>
@@ -64,7 +64,7 @@
             <div class="example-card" @onclick="() => _price += 999">
                 <div class="card-label">Price</div>
                 <div class="card-value">
-                    $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" Class="mono" />
+                    $<BlazorFastRollingNumber Value="_price" MinimumDigits="5" Duration="800ms" EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)" CssClass="mono" />
                 </div>
                 <div class="card-code">Custom easing</div>
             </div>
@@ -76,19 +76,19 @@
         <div class="showcase-grid">
             <div class="showcase-item">
                 <div class="showcase-label">Large Display</div>
-                <BlazorFastRollingNumber Value="_subscribers" Class="large" />
+                <BlazorFastRollingNumber Value="_subscribers" CssClass="large" />
                 <button @onclick="() => _subscribers += 1000" class="showcase-btn">+1K Subscribers</button>
             </div>
 
             <div class="showcase-item">
                 <div class="showcase-label">Colorful</div>
-                <BlazorFastRollingNumber Value="_likes" Class="colorful" />
+                <BlazorFastRollingNumber Value="_likes" CssClass="colorful" />
                 <button @onclick="() => _likes++" class="showcase-btn">❤️ Like</button>
             </div>
 
             <div class="showcase-item">
                 <div class="showcase-label">Compact</div>
-                <BlazorFastRollingNumber Value="_views" Class="compact" />
+                <BlazorFastRollingNumber Value="_views" CssClass="compact" />
                 <button @onclick="() => _views += 10" class="showcase-btn">👁️ +10 Views</button>
             </div>
         </div>
@@ -134,7 +134,7 @@
             <pre><code>&lt;BlazorFastRollingNumber 
     Value="@@score" 
     Duration="0.5s"
-    Class="my-counter" /&gt;
+    CssClass="my-counter" /&gt;
 
 &lt;style&gt;
 .my-counter {
