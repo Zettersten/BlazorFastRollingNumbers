@@ -17,6 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Zettersten/BlazorFastRollingNumbers</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageTags>blazor;rolling;numbers;components;webassembly;server;blazor-component;animation;rolling-numbers;aot;trimming</PackageTags>
     <PackageReleaseNotes>See https://github.com/Zettersten/BlazorFastRollingNumbers/releases for release notes.</PackageReleaseNotes>
 
@@ -67,6 +68,7 @@
 
   <ItemGroup>
     <None Include="../README.md" Pack="true" PackagePath="/" />
+    <None Include="../icon.png" Pack="true" PackagePath="/" Condition="Exists('icon.png')" />
   </ItemGroup>
 
   <ItemGroup>

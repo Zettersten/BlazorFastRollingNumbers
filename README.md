@@ -74,7 +74,7 @@ builder.Services.AddRazorComponents()
     Value="@currentScore" 
     Duration="0.5s" 
     EasingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
-    Class="score-counter" />
+    CssClass="score-counter" />
 ```
 
 Add some styling:
@@ -120,7 +120,7 @@ The component is fully compatible with:
 | `MinimumDigits` | `int` | `0` | Minimum number of digits to display (pads with zero-width spaces). |
 | `Duration` | `string` | `"1s"` | CSS transition duration (e.g., "0.5s", "500ms"). |
 | `EasingFunction` | `string` | `"ease"` | CSS easing function (e.g., "ease-in-out", "cubic-bezier(0.4, 0, 0.2, 1)"). |
-| `Class` | `string?` | `null` | Additional CSS class names for the container element. |
+| `CssClass` | `string?` | `null` | Additional CSS class names for the container element. |
 
 ## Styling with CSS Variables
 
