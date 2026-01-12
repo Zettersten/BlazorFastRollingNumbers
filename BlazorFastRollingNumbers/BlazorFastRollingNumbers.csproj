@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RazorLangVersion>10.0</RazorLangVersion>
+    <RazorLangVersion>Latest</RazorLangVersion>
 
     <!-- Package Configuration -->
     <IsPackable>true</IsPackable>
@@ -47,7 +47,6 @@
     <EnableAOTAnalyzer>true</EnableAOTAnalyzer>
     
     <!-- Performance optimizations -->
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
