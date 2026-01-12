@@ -1,3 +1,5 @@
+/* Demo site styling (global). */
+
 .page {
     min-height: 100vh;
     background: #0a0a0a;
@@ -177,33 +179,33 @@ h3 {
 }
 
 /* CSS classes for component styling */
-::deep .display-number {
+.display-number {
     --bfrn-font-family: 'JetBrains Mono', monospace;
     --bfrn-font-size: clamp(4rem, 10vw, 8rem);
     --bfrn-font-weight: 700;
     --bfrn-color: #f9fafb;
 }
 
-::deep .mono {
+.mono {
     --bfrn-font-family: 'JetBrains Mono', monospace;
     --bfrn-font-weight: 600;
 }
 
-::deep .large {
+.large {
     --bfrn-font-family: 'JetBrains Mono', monospace;
     --bfrn-font-size: 4rem;
     --bfrn-font-weight: 700;
     --bfrn-color: #f9fafb;
 }
 
-::deep .colorful {
+.colorful {
     --bfrn-font-family: 'JetBrains Mono', monospace;
     --bfrn-font-size: 3rem;
     --bfrn-font-weight: 700;
     --bfrn-color: #f472b6;
 }
 
-::deep .compact {
+.compact {
     --bfrn-font-family: 'JetBrains Mono', monospace;
     --bfrn-font-size: 2rem;
     --bfrn-font-weight: 600;
@@ -424,11 +426,12 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    ::deep .display-number {
+    .display-number {
         --bfrn-font-size: 3.5rem;
     }
 
-    ::deep .large {
+    .large {
         --bfrn-font-size: 2.5rem;
     }
 }
+

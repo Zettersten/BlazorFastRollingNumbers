@@ -20,6 +20,16 @@ Blazor Fast Rolling Numbers is a high-performance animated counter component for
 - 🧭 **Deterministic layout.** No runtime measurements or JavaScript observers—just predictable, fast rendering.
 - 🧩 **Composable.** Supports positive/negative integers, custom durations, easing functions, and minimum digit padding
 
+## When to use this component
+
+- **Dashboards / metrics** where you want a polished “rolling counter” effect (scores, totals, KPIs).
+- **Allocation-sensitive Blazor apps** (WASM, AOT, trimming) where you want a small, deterministic UI primitive.
+
+## When *not* to use it
+
+- If you need **localized formatting** (group separators, currency, locales). Format the value outside the component and render that separately.
+- If you need **non-integer** display. This component intentionally targets `int` to keep the API tight and predictable.
+
 ## Getting Started
 
 ### Installation
@@ -29,6 +39,8 @@ Install the package from NuGet:
 ```bash
 dotnet add package BlazorFastRollingNumbers
 ```
+
+**Target framework:** this library targets **.NET 10**.
 
 ### Setup
 

@@ -1,0 +1,36 @@
+<section class="installation-section">
+    <h2>Installation</h2>
+    <div class="code-block">
+        <code>dotnet add package BlazorFastRollingNumbers</code>
+    </div>
+
+    <h3>Basic Usage</h3>
+    <div class="code-block">
+        <pre><code>&lt;BlazorFastRollingNumber Value="12345" /&gt;</code></pre>
+    </div>
+
+    <h3>With Custom Styling</h3>
+    <div class="code-block">
+        <pre><code>&lt;BlazorFastRollingNumber 
+    Value="@@score" 
+    Duration="0.5s"
+    CssClass="my-counter" /&gt;
+
+&lt;style&gt;
+.my-counter {
+    --bfrn-font-size: 3rem;
+    --bfrn-font-weight: 700;
+    --bfrn-color: #3b82f6;
+}
+&lt;/style&gt;</code></pre>
+    </div>
+
+    <h3>Accessibility</h3>
+    <div class="code-block">
+        <pre><code>&lt;BlazorFastRollingNumber
+    Value="@@score"
+    AriaLabel="@@($&quot;Score: {score}&quot;)"
+    AriaLive="polite" /&gt;</code></pre>
+    </div>
+</section>
+
