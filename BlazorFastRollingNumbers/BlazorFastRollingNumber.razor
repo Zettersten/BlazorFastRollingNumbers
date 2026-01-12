@@ -1,12 +1,13 @@
 @namespace BlazorFastRollingNumbers
-@using System.Buffers
-@using System.Runtime.CompilerServices
-@using System.Runtime.InteropServices
 
-<span class="bfrn @CssClass" style="--roll-duration: @Duration; --roll-easing: @Easing">
-    @foreach (var item in _digitData)
+<span class="bfrn @CssClass"
+      style="--roll-duration: @Duration; --roll-easing: @Easing"
+      aria-label="@AriaLabel"
+      aria-live="@AriaLive">
+    @for (var i = 0; i < _digitCount; i++)
     {
-        <span class="bfrn__digit" style="--digit-offset: @(item.Offset)%" data-digit="@(item.Index)">
+        var item = _digitData[i];
+        <span class="bfrn__digit" style="--digit-offset: @(item.Offset)%" data-digit="@i">
             <span class="bfrn__scale" aria-hidden="true">
                 <span>0</span>
                 <span>1</span>
@@ -24,119 +25,3 @@
         </span>
     }
 </span>
-
-@code {
-    [Parameter]
-    public int Value { get; set; }
-
-    [Parameter]
-    public int MinimumDigits { get; set; }
-
-    [Parameter]
-    public string Duration { get; set; } = "1s";
-
-    [Parameter]
-    public Easing Easing { get; set; } = Easing.Ease;
-
-    [Parameter]
-    public string? CssClass { get; set; }
-
-    private DigitData[] _digitData = [];
-    private int _lastValue = int.MaxValue;
-    private int _lastMinDigits = -1;
-
-    protected override void OnParametersSet()
-    {
-        // Only recompute if value or min digits changed
-        if (_lastValue == Value && _lastMinDigits == MinimumDigits)
-            return;
-
-        _lastValue = Value;
-        _lastMinDigits = MinimumDigits;
-
-        var targetSize = Math.Max(MinimumDigits, GetDigitCount(Value));
-        
-        // Reuse array if same size
-        if (_digitData.Length != targetSize)
-            _digitData = new DigitData[targetSize];
-
-        PopulateDigitData(Value, targetSize, _digitData);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int GetTransformOffset(char digit)
-    {
-        // Branchless computation for digits 0-9
-        if ((uint)(digit - '0') <= 9)
-            return (digit - '0') * -10;
-
-        return digit switch
-        {
-            '\u200B' => 10,
-            '-' => -100,
-            _ => 0
-        };
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int GetDigitCount(int value)
-    {
-        if (value == 0) return 1;
-        if (value == int.MinValue) return 11;
-        
-        var absValue = Math.Abs(value);
-        
-        // Optimized digit count without log10
-        int digits = 1;
-        if (absValue >= 100000000) { digits += 8; absValue /= 100000000; }
-        if (absValue >= 10000) { digits += 4; absValue /= 10000; }
-        if (absValue >= 100) { digits += 2; absValue /= 100; }
-        if (absValue >= 10) digits++;
-        
-        return value < 0 ? digits + 1 : digits;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveOptimization)]
-    private static void PopulateDigitData(int value, int targetSize, Span<DigitData> destination)
-    {
-        const char ZeroWidthSpace = '\u200B';
-        
-        Span<char> buffer = stackalloc char[11];
-        
-        if (!value.TryFormat(buffer, out int written))
-        {
-            destination[0] = new DigitData(ZeroWidthSpace, 10, 0);
-            return;
-        }
-
-        var padding = targetSize - written;
-        
-        // Fill padding
-        for (int i = 0; i < padding; i++)
-        {
-            destination[i] = new DigitData(ZeroWidthSpace, 10, i);
-        }
-        
-        // Copy actual digits
-        for (int i = 0; i < written; i++)
-        {
-            var ch = buffer[i];
-            destination[padding + i] = new DigitData(ch, GetTransformOffset(ch), padding + i);
-        }
-    }
-
-    private readonly struct DigitData
-    {
-        public readonly char Char;
-        public readonly int Offset;
-        public readonly int Index;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public DigitData(char ch, int offset, int index)
-        {
-            Char = ch;
-            Offset = offset;
-            Index = index;
-        }
-    }
-}

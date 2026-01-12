@@ -7,7 +7,7 @@ namespace BlazorFastRollingNumbers.Tests;
 public class BlazorFastRollingNumberTests : TestContext
 {
     [Fact]
-    public void BlazorFastBlazorFastRollingNumber_RendersPositiveNumber()
+    public void BlazorFastRollingNumber_RendersPositiveNumber()
     {
         // Arrange & Act
         var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
@@ -65,6 +65,19 @@ public class BlazorFastRollingNumberTests : TestContext
         var allDigits = cut.FindAll(".bfrn__digit");
         var paddingCount = allDigits.Count(d => d.GetAttribute("style")?.Contains("--digit-offset: 10%") == true);
         Assert.Equal(3, paddingCount);
+    }
+
+    [Fact]
+    public void BlazorFastRollingNumber_ClampsVeryLargeMinimumDigits()
+    {
+        // Arrange & Act
+        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+            .Add(p => p.Value, 5)
+            .Add(p => p.MinimumDigits, 1000));
+
+        // Assert
+        var digits = cut.FindAll(".bfrn__digit");
+        Assert.Equal(32, digits.Count);
     }
 
     [Fact]
@@ -226,6 +239,19 @@ public class BlazorFastRollingNumberTests : TestContext
         // Assert - Style should not change (same value)
         var newStyle = firstDigit.GetAttribute("style");
         Assert.Equal(initialStyle, newStyle);
+    }
+
+    [Fact]
+    public void BlazorFastRollingNumber_RendersAriaLabelWhenProvided()
+    {
+        // Arrange & Act
+        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+            .Add(p => p.Value, 42)
+            .Add(p => p.AriaLabel, "Score: 42"));
+
+        // Assert
+        var wrapper = cut.Find(".bfrn");
+        Assert.Equal("Score: 42", wrapper.GetAttribute("aria-label"));
     }
 
     [Fact]

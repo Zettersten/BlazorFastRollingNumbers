@@ -36,7 +36,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: transform var(--roll-duration, 1s);
+    transition: transform var(--roll-duration, 1s) var(--roll-easing, ease);
 }
 
 .bfrn__digit .bfrn__scale {
