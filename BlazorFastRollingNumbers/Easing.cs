@@ -25,7 +25,7 @@ public readonly struct Easing
     /// <summary>
     /// Converts the Easing to its CSS string representation.
     /// </summary>
-    public override string ToString() => _value;
+    public override string ToString() => _value ?? "linear";
 
     // Standard CSS easing functions
     public static readonly Easing Linear = new("linear");

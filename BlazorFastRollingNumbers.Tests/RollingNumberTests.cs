@@ -4,13 +4,13 @@ using Xunit;
 
 namespace BlazorFastRollingNumbers.Tests;
 
-public class BlazorFastRollingNumberTests : TestContext
+public class BlazorFastRollingNumberTests : BunitContext
 {
     [Fact]
-    public void BlazorFastBlazorFastRollingNumber_RendersPositiveNumber()
+    public void BlazorFastRollingNumber_RendersPositiveNumber()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 123));
 
         // Assert
@@ -25,7 +25,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_RendersNegativeNumber()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, -456));
 
         // Assert
@@ -41,7 +41,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_RendersZero()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 0));
 
         // Assert
@@ -53,7 +53,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_RespectsMinimumDigits()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 5)
             .Add(p => p.MinimumDigits, 4));
 
@@ -68,14 +68,27 @@ public class BlazorFastRollingNumberTests : TestContext
     }
 
     [Fact]
+    public void BlazorFastRollingNumber_ClampsVeryLargeMinimumDigits()
+    {
+        // Arrange & Act
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
+            .Add(p => p.Value, 5)
+            .Add(p => p.MinimumDigits, 1000));
+
+        // Assert
+        var digits = cut.FindAll(".bfrn__digit");
+        Assert.Equal(32, digits.Count);
+    }
+
+    [Fact]
     public void BlazorFastRollingNumber_UpdatesWhenValueChanges()
     {
         // Arrange
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 100));
 
         // Act
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Value, 999));
 
         // Assert
@@ -91,7 +104,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_HandlesMaxInt()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, int.MaxValue));
 
         // Assert
@@ -103,7 +116,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_HandlesMinInt()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, int.MinValue));
 
         // Assert
@@ -119,7 +132,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_HasCorrectCssClasses()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 42));
 
         // Assert
@@ -141,7 +154,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_ScaleContainsAllDigitsAndMinus()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 1));
 
         // Assert
@@ -165,7 +178,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_CorrectDigitCount(int value, int expectedDigits)
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, value));
 
         // Assert
@@ -180,7 +193,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_CorrectDigitCountForNegative(int value, int expectedDigits)
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, value));
 
         // Assert
@@ -192,14 +205,14 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_AnimationTriggersOnValueChange()
     {
         // Arrange
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 100));
 
         var firstDigit = cut.Find(".bfrn__digit");
         var initialStyle = firstDigit.GetAttribute("style");
 
         // Act - Change value
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Value, 200));
 
         // Assert - Style should change (different offset)
@@ -211,7 +224,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_NoAnimationWhenValueUnchanged()
     {
         // Arrange
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 100)
             .Add(p => p.MinimumDigits, 5));
 
@@ -219,7 +232,7 @@ public class BlazorFastRollingNumberTests : TestContext
         var initialStyle = firstDigit.GetAttribute("style");
 
         // Act - Change only MinimumDigits, not Value
-        cut.SetParametersAndRender(parameters => parameters
+        cut.Render(parameters => parameters
             .Add(p => p.Value, 100)
             .Add(p => p.MinimumDigits, 6));
 
@@ -229,10 +242,23 @@ public class BlazorFastRollingNumberTests : TestContext
     }
 
     [Fact]
+    public void BlazorFastRollingNumber_RendersAriaLabelWhenProvided()
+    {
+        // Arrange & Act
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
+            .Add(p => p.Value, 42)
+            .Add(p => p.AriaLabel, "Score: 42"));
+
+        // Assert
+        var wrapper = cut.Find(".bfrn");
+        Assert.Equal("Score: 42", wrapper.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void BlazorFastRollingNumber_SupportsCustomEasing()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 123)
             .Add(p => p.Easing, "cubic-bezier(0.4, 0, 0.2, 1)"));
 
@@ -246,7 +272,7 @@ public class BlazorFastRollingNumberTests : TestContext
     public void BlazorFastRollingNumber_SupportsCustomDuration()
     {
         // Arrange & Act
-        var cut = RenderComponent<BlazorFastRollingNumber>(parameters => parameters
+        var cut = Render<BlazorFastRollingNumber>(parameters => parameters
             .Add(p => p.Value, 123)
             .Add(p => p.Duration, "0.5s"));
 

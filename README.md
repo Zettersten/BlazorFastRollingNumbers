@@ -16,7 +16,7 @@ Blazor Fast Rolling Numbers is a high-performance animated counter component for
 - ⚡ **Pure CSS animations.** Smooth transitions using CSS transforms and custom properties—no JavaScript for animation logic.
 - 🪶 **Trimming-friendly by design.** The library is marked as trimmable, ships without reflection, and has analyzers enabled so you can confidently publish with `PublishTrimmed=true`.
 - 🚀 **AOT ready.** Validated against Native AOT constraints with `EnableAOTAnalyzer` enabled.
-- 🎯 **Zero-allocation rendering.** Uses `Span<T>`, `stackalloc`, and aggressive inlining for minimal GC pressure.
+- 🎯 **Low-allocation updates.** Rendering uses `Span<T>` + `stackalloc` and reuses a bounded internal buffer so typical value updates avoid new allocations.
 - 🧭 **Deterministic layout.** No runtime measurements or JavaScript observers—just predictable, fast rendering.
 - 🧩 **Composable.** Supports positive/negative integers, custom durations, easing functions, and minimum digit padding
 
@@ -118,10 +118,12 @@ The component is fully compatible with:
 | Parameter | Type | Default | Description |
 | :-------- | :--- | :------ | :---------- |
 | `Value` | `int` | *required* | The number to display (supports positive and negative integers). |
-| `MinimumDigits` | `int` | `0` | Minimum number of digits to display (pads with zero-width spaces). |
+| `MinimumDigits` | `int` | `0` | Minimum number of characters to render (pads with zero-width spaces). Values > 32 are clamped to keep rendering bounded. |
 | `Duration` | `string` | `"1s"` | CSS transition duration (e.g., "0.5s", "500ms"). |
 | `Easing` | `Easing` | `Easing.Ease` | Easing function with static defaults or custom CSS string (see below). |
 | `CssClass` | `string?` | `null` | Additional CSS class names for the container element. |
+| `AriaLabel` | `string?` | `null` | Optional `aria-label` for screen readers (recommended when the number is meaningful). |
+| `AriaLive` | `string?` | `null` | Optional `aria-live` politeness setting (e.g. `"polite"`). |
 
 ### Easing Functions
 
@@ -176,6 +178,12 @@ By default, the component inherits font styles from its parent
 - The component automatically respects `prefers-reduced-motion` to disable animations for users who request it.
 - Use semantic markup around the component and provide context (e.g., "Score: ") for screen readers.
 - For rapidly changing values, consider debouncing updates to reduce render frequency.
+
+### Accessible label example
+
+```razor
+<BlazorFastRollingNumber Value="@score" AriaLabel="@($"Score: {score}")" AriaLive="polite" />
+```
 
 ## Testing
 
